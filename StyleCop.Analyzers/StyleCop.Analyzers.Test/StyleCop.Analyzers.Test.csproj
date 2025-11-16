@@ -5,6 +5,7 @@
     <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <NoWarn>$(NoWarn);RS1041</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\StyleCop.Analyzers.Internal.ruleset</CodeAnalysisRuleSet>
