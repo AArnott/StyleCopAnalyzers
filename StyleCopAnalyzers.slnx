@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/.nuget/">
-    <File Path=".nuget/packages.config" />
-  </Folder>
   <Folder Name="/build/">
     <File Path="build/build-and-test.yml" />
     <File Path="build/build.ps1" />
@@ -227,6 +224,7 @@
     <File Path=".codecov.yml" />
     <File Path=".editorconfig" />
     <File Path="CONTRIBUTING.md" />
+    <File Path="Directory.Packages.props" />
     <File Path="LICENSE" />
     <File Path="README.md" />
     <File Path="THIRD-PARTY-NOTICES.txt" />
