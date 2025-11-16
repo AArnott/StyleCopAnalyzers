@@ -7,7 +7,7 @@ param (
 )
 
 # build the solution
-$SolutionPath = Resolve-Path "$PSScriptRoot\..\StyleCopAnalyzers.sln"
+$SolutionPath = Resolve-Path "$PSScriptRoot\..\StyleCopAnalyzers.slnx"
 
 If ($Debug) {
 	$BuildConfig = 'Debug'
@@ -42,7 +42,7 @@ If (-not (Test-Path $msbuild)) {
 # Attempt to restore packages up to 3 times, to improve resiliency to connection timeouts and access denied errors.
 $maxAttempts = 3
 For ($attempt = 0; $attempt -lt $maxAttempts; $attempt++) {
-	&$nuget 'restore' $SolutionPath
+	dotnet restore $SolutionPath
 	If ($?) {
 		Break
 	} ElseIf (($attempt + 1) -eq $maxAttempts) {
@@ -61,7 +61,7 @@ If ($Incremental) {
 	$Target = 'rebuild'
 }
 
-&$msbuild '/nologo' '/m' '/nr:false' "/t:$Target" $LoggerArgument "/verbosity:$Verbosity" "/p:Configuration=$BuildConfig" "/p:VisualStudioVersion=$VisualStudioVersion" $SolutionPath
+&$msbuild '/nologo' '/nr:false' "/t:$Target" $LoggerArgument "/verbosity:$Verbosity" "/p:Configuration=$BuildConfig" "/p:VisualStudioVersion=$VisualStudioVersion" $SolutionPath
 If (-not $?) {
 	$host.ui.WriteErrorLine('Build failed, aborting!')
 	exit $LASTEXITCODE

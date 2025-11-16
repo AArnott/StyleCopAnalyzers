@@ -1,0 +1,4 @@
+# The build has timing breaks when MSBuild builds in parallel.
+/m:1
+/verbosity:minimal
+/clp:Summary;ForceNoAlign

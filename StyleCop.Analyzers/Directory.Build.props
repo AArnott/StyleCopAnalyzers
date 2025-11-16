@@ -13,10 +13,7 @@
     <WarningLevel>99</WarningLevel>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' != 'true'">
-    <!-- Ideally this is always enabled, but that tends to hurt developer productivity -->
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
+
   <PropertyGroup>
     <DebugType Condition="'$(Configuration)' == 'Debug'">full</DebugType>
     <DebugType Condition="'$(Configuration)' != 'Debug'">portable</DebugType>
@@ -30,9 +27,10 @@
       CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
       CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
       CS1712: Type parameter 'type_parameter' has no matching typeparam tag in the XML comment on 'type_or_member' (but other type parameters do)
+      NETSDK1215: Warning about targeting .NET Standard 1.x (https://github.com/AArnott/StyleCopAnalyzers/issues/5)
     -->
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+    <NoWarn>$(NoWarn),1573,1591,1712,NETSDK1215</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SharedMicrosoftCodeAnalysisAnalyzersVersion>3.11.0-beta1.24072.1</SharedMicrosoftCodeAnalysisAnalyzersVersion>
