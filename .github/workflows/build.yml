@@ -20,6 +20,9 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Configure git line endings
+      run: git config --global core.autocrlf true
+
     - name: Setup .NET SDK
       run: .\init.ps1 -NoRestore
       shell: pwsh
@@ -41,13 +44,6 @@ jobs:
     - name: Generate Status JSON
       run: .\StyleCop.Analyzers\StyleCop.Analyzers.Status.Generator\bin\${{ matrix.configuration }}\net472\StyleCop.Analyzers.Status.Generator.exe .\StyleCopAnalyzers.sln > StyleCop.Analyzers.Status.json
       shell: pwsh
-
-    - name: Upload VSIX artifact
-      if: matrix.configuration == 'Release'
-      uses: actions/upload-artifact@v4
-      with:
-        name: VSIX
-        path: StyleCop.Analyzers/StyleCop.Analyzers.Vsix/bin/Release/net452/*.vsix
 
     - name: Upload NuGet packages
       if: matrix.configuration == 'Release'
