@@ -41,7 +41,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build solution
-      run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal
+      run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904
 
     - name: Upload NuGet packages
       if: matrix.configuration == 'Release'
