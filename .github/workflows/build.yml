@@ -29,19 +29,14 @@ jobs:
       run: .\init.ps1 -NoRestore
       shell: pwsh
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
-      with:
-        nuget-version: '5.x'
-
     - name: Restore NuGet packages
-      run: nuget restore StyleCopAnalyzers.sln
+      run: dotnet restore StyleCopAnalyzers.slnx
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
     - name: Build solution
-      run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904
+      run: msbuild StyleCopAnalyzers.slnx /p:Configuration=${{ matrix.configuration }} /v:minimal -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904
 
     - name: Upload NuGet packages
       if: matrix.configuration == 'Release'
