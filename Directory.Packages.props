@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- https://learn.microsoft.com/nuget/consume-packages/central-package-management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageVersion Include="TunnelVisionLabs.LanguageTypes.SourceGenerator" Version="0.1.20-beta" />
+    <PackageVersion Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" />
+  </ItemGroup>
+  <ItemGroup Label="Library.Template">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="xunit.v3" Version="3.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Put repo-specific GlobalPackageReference items in this group. -->
+  </ItemGroup>
+  <ItemGroup Label="Library.Template">
+    <GlobalPackageReference Include="CSharpIsNullAnalyzer" Version="0.1.593" />
+    <GlobalPackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
+    <!-- The condition works around https://github.com/dotnet/sdk/issues/44951 -->
+    <GlobalPackageReference Include="Nerdbank.GitVersioning" Version="3.9.50" Condition="!('$(TF_BUILD)'=='true' and '$(dotnetformat)'=='true')" />
+    <!-- <GlobalPackageReference Include="PolySharp" Version="1.15.0" /> -->
+    <!-- <GlobalPackageReference Include="Nullable" /> -->
+    <GlobalPackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
+  </ItemGroup>
+</Project>
