@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build solution
-      run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal /m
+      run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal
 
     - name: Generate Status JSON
       run: .\StyleCop.Analyzers\StyleCop.Analyzers.Status.Generator\bin\${{ matrix.configuration }}\net472\StyleCop.Analyzers.Status.Generator.exe .\StyleCopAnalyzers.sln > StyleCop.Analyzers.Status.json
