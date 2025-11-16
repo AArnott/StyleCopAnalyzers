@@ -43,19 +43,9 @@ jobs:
     - name: Build solution
       run: msbuild StyleCopAnalyzers.sln /p:Configuration=${{ matrix.configuration }} /v:minimal
 
-    - name: Generate Status JSON
-      run: .\StyleCop.Analyzers\StyleCop.Analyzers.Status.Generator\bin\${{ matrix.configuration }}\net472\StyleCop.Analyzers.Status.Generator.exe .\StyleCopAnalyzers.sln > StyleCop.Analyzers.Status.json
-      shell: pwsh
-
     - name: Upload NuGet packages
       if: matrix.configuration == 'Release'
       uses: actions/upload-artifact@v4
       with:
         name: NuGet-Packages
         path: StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release/*.nupkg
-
-    - name: Upload Status JSON
-      uses: actions/upload-artifact@v4
-      with:
-        name: Status-JSON-${{ matrix.configuration }}
-        path: StyleCop.Analyzers.Status.json
