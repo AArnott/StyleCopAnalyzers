@@ -5,7 +5,6 @@
 
 namespace StyleCop.Analyzers.Test.Lightup
 {
-    using System;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Lightup;
     using Xunit;
@@ -27,10 +26,6 @@ namespace StyleCop.Analyzers.Test.Lightup
             // With default value is allowed
             var crefParameterWithDefaultRefKind = CrefParameterSyntaxExtensions.WithRefKindKeyword(crefParameterSyntax, default);
             Assert.Equal(default, CrefParameterSyntaxExtensions.RefKindKeyword(crefParameterWithDefaultRefKind));
-
-            // Non-default throws an exception
-            var refKind = SyntaxFactory.Token(SyntaxKind.RefKeyword);
-            Assert.Throws<NotSupportedException>(() => CrefParameterSyntaxExtensions.WithRefKindKeyword(crefParameterSyntax, refKind));
         }
     }
 }

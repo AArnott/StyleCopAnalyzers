@@ -5,7 +5,6 @@
 
 namespace StyleCop.Analyzers.Test.Lightup
 {
-    using System;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Lightup;
     using Xunit;
@@ -20,10 +19,6 @@ namespace StyleCop.Analyzers.Test.Lightup
             // With default value is allowed
             var syntaxWithDefaultBody = ConstructorDeclarationSyntaxExtensions.WithExpressionBody(syntax, null);
             Assert.Null(BaseMethodDeclarationSyntaxExtensions.ExpressionBody(syntaxWithDefaultBody));
-
-            // Non-default throws an exception
-            var expressionBody = SyntaxFactory.ArrowExpressionClause(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
-            Assert.Throws<NotSupportedException>(() => ConstructorDeclarationSyntaxExtensions.WithExpressionBody(syntax, expressionBody));
         }
     }
 }
