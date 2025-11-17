@@ -1,4 +1,4 @@
-### Readability Rules (SA1100-)
+# Readability Rules (SA1100-)
 Rules which ensure that the code is well-formatted and readable.
 
 Identifier | Name | Description

@@ -1,4 +1,4 @@
-### Alternative Rules (SX0000-)
+# Alternative Rules (SX0000-)
 Rules which are non-standard extensions to the default StyleCop behavior, and represent an alternative style which is adopted by some projects. Alternative rules are known to directly conflict with standard StyleCop rules.
 
 Identifier | Name | Description

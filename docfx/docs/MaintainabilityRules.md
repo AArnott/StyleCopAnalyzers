@@ -1,4 +1,4 @@
-### Maintainability Rules (SA1400-)
+# Maintainability Rules (SA1400-)
 Rules which improve code maintainability.
 
 Identifier | Name | Description

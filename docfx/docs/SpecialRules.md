@@ -1,4 +1,4 @@
-### Special Rules (SA0000-)
+# Special Rules (SA0000-)
 Rules which provide special functionality like workarounds, configuration errors, etc.
 
 Identifier | Name | Description

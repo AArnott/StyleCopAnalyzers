@@ -1,4 +1,4 @@
-### Ordering Rules (SA1200-)
+# Ordering Rules (SA1200-)
 Rules which enforce a standard ordering scheme for code contents.
 
 Identifier | Name | Description
