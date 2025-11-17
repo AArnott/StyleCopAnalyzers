@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net46</TargetFrameworks>
+    <TargetFrameworks>net472</TargetFrameworks>
     <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
     <!-- Automatically generate the necessary assembly binding redirects -->
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
