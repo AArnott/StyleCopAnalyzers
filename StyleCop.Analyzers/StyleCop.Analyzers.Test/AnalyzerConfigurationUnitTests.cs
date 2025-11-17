@@ -62,7 +62,7 @@ namespace StyleCop.Analyzers.Test
             }
         }
 
-        private class CSharpTest : CodeFixTest<XUnitVerifier>
+        private class CSharpTest : CodeFixTest<DefaultVerifier>
         {
             private readonly Type analyzerType;
 
