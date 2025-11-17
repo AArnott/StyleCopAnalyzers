@@ -18,7 +18,7 @@
     <PackageReference Include="System.Collections.Immutable" />
     <PackageReference Include="LibGit2Sharp" />
     <PackageReference Include="Microsoft.Build.Locator" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" VersionOverride="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" />
     <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>

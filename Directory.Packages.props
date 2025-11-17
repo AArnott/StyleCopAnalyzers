@@ -9,14 +9,15 @@
     <PackageVersion Include="LibGit2Sharp" Version="0.26.2" />
     <PackageVersion Include="Microsoft.Build.Locator" Version="1.2.6" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="$(SharedMicrosoftCodeAnalysisAnalyzersVersion)" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="2.9.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.XUnit" Version="1.1.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.0.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="$(SharedMicrosoftCodeAnalysisAnalyzersVersion)" />
     <PackageVersion Include="Microsoft.CodeAnalysis.ResxSourceGenerator" Version="$(SharedMicrosoftCodeAnalysisAnalyzersVersion)" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.7.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Desktop" Version="5.0.0-1.25277.114" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.11.0" />
     <PackageVersion Include="Microsoft.Net.Compilers.Toolset" Version="4.0.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Composition" Version="16.1.8" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="2.2.13" />
