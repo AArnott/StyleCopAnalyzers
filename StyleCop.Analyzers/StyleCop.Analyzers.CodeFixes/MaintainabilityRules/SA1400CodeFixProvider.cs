@@ -87,7 +87,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
-                updatedDeclarationNode = HandleRecordDeclaration((RecordDeclarationSyntaxWrapper)declarationNode);
+                updatedDeclarationNode = HandleRecordDeclaration((RecordDeclarationSyntax)declarationNode);
                 break;
 
             case SyntaxKind.DelegateDeclaration:
@@ -202,7 +202,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 .WithoutFormatting();
         }
 
-        private static SyntaxNode HandleRecordDeclaration(RecordDeclarationSyntaxWrapper node)
+        private static SyntaxNode HandleRecordDeclaration(RecordDeclarationSyntax node)
         {
             SyntaxToken triviaToken = node.Keyword;
             if (triviaToken.IsMissing)
@@ -215,7 +215,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             return node
                 .WithKeyword(triviaToken)
                 .WithModifiers(modifiers)
-                .SyntaxNode
                 .WithoutFormatting();
         }
 

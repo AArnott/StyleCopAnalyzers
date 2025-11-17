@@ -100,7 +100,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
             }
 
-            if (targetType.Equals(context.SemanticModel.GetTypeInfo(castedElementTypeSyntax).Type))
+            if (SymbolEqualityComparer.Default.Equals(targetType, context.SemanticModel.GetTypeInfo(castedElementTypeSyntax).Type))
             {
                 // cast is redundant which is reported by another diagnostic.
                 return;
@@ -114,7 +114,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             var speculativeExpression = castExpressionSyntax.Expression.ReplaceNode(castedElementTypeSyntax, castedElementTypeSyntax.WithLiteralSuffix(syntaxKindKeyword));
             var speculativeTypeInfo = context.SemanticModel.GetSpeculativeTypeInfo(castExpressionSyntax.SpanStart, speculativeExpression, SpeculativeBindingOption.BindAsExpression);
-            if (!targetType.Equals(speculativeTypeInfo.Type))
+            if (!SymbolEqualityComparer.Default.Equals(targetType, speculativeTypeInfo.Type))
             {
                 // Suffix notation would change the type of the expression
                 return;

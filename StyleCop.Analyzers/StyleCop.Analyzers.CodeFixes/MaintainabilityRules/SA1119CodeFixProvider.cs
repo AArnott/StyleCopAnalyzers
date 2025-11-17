@@ -102,10 +102,10 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             public static FixAllProvider Instance { get; }
                 = new FixAll();
 
-            protected override string CodeActionTitle
+            protected override string GetFixAllTitle(FixAllContext fixAllContext)
                 => MaintainabilityResources.SA1119CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -116,7 +116,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
                 var nodes = diagnostics.Select(diagnostic => syntaxRoot.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true, findInsideTrivia: true));
 
-                return syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => GetReplacement((ParenthesizedExpressionSyntax)rewrittenNode));
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => GetReplacement((ParenthesizedExpressionSyntax)rewrittenNode)));
             }
         }
     }

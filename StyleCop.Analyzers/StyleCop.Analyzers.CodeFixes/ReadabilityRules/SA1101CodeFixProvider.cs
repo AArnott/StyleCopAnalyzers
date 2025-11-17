@@ -77,10 +77,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                    new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.SA1101CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -100,10 +100,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     nodesNeedingQualification.Add(node);
                 }
 
-                return syntaxRoot.ReplaceNodes(nodesNeedingQualification, (originalNode, rewrittenNode) =>
-                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, ThisExpressionSyntax, (SimpleNameSyntax)rewrittenNode.WithoutTrivia().WithoutFormatting())
-                .WithTriviaFrom(rewrittenNode)
-                .WithoutFormatting());
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(nodesNeedingQualification, (originalNode, rewrittenNode) =>
+                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, ThisExpressionSyntax, (SimpleNameSyntax)rewrittenNode.WithoutTrivia().WithoutFormatting())
+                    .WithTriviaFrom(rewrittenNode)
+                    .WithoutFormatting()));
             }
         }
     }

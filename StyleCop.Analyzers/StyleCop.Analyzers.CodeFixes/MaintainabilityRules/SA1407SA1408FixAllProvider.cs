@@ -16,9 +16,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
     internal sealed class SA1407SA1408FixAllProvider : DocumentBasedFixAllProvider
     {
-        protected override string CodeActionTitle => MaintainabilityResources.SA1407SA1408CodeFix;
+        protected override string GetFixAllTitle(FixAllContext fixAllContext) => MaintainabilityResources.SA1407SA1408CodeFix;
 
-        protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+        protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
         {
             if (diagnostics.IsEmpty)
             {
@@ -39,7 +39,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 nodes.Add(node);
             }
 
-            return root.ReplaceNodes(nodes, (originalNode, rewrittenNode) => AddParentheses(rewrittenNode));
+            return document.WithSyntaxRoot(root.ReplaceNodes(nodes, (originalNode, rewrittenNode) => AddParentheses(rewrittenNode)));
         }
 
         private static SyntaxNode AddParentheses(SyntaxNode node)

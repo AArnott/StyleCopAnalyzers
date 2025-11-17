@@ -167,7 +167,7 @@ namespace StyleCop.Analyzers.NamingRules
                 {
                     foreach (var member in implementedInterface.GetMembers(methodSymbol.Name).OfType<IMethodSymbol>())
                     {
-                        if (methodSymbol.Equals(containingType.FindImplementationForInterfaceMember(member)))
+                        if (SymbolEqualityComparer.Default.Equals(methodSymbol, containingType.FindImplementationForInterfaceMember(member)))
                         {
                             return member.Parameters[index].Name == syntax.Identifier.ValueText;
                         }

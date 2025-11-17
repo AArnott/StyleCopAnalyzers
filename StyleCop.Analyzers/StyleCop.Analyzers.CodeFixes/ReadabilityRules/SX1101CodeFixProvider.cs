@@ -71,10 +71,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                    new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.SX1101CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -95,7 +95,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     replaceMap[node.Parent] = GenerateReplacementNode(node);
                 }
 
-                return syntaxRoot.ReplaceNodes(replaceMap.Keys, (originalNode, rewrittenNode) => replaceMap[originalNode]);
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(replaceMap.Keys, (originalNode, rewrittenNode) => replaceMap[originalNode]));
             }
         }
     }

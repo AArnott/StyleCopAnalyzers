@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.Helpers
                     if (current.IsAnyLambda())
                     {
                         var typeInfo = semanticModel.GetTypeInfo(current, cancellationToken);
-                        if (expressionType.Equals(typeInfo.ConvertedType?.OriginalDefinition))
+                        if (SymbolEqualityComparer.Default.Equals(expressionType, typeInfo.ConvertedType?.OriginalDefinition))
                         {
                             return true;
                         }
@@ -68,11 +68,11 @@ namespace StyleCop.Analyzers.Helpers
                 return false;
             }
 
-            static bool TakesExpressionTree(ISymbol symbol, INamedTypeSymbol expressionType)
+            static bool TakesExpressionTree(ISymbol? symbol, INamedTypeSymbol expressionType)
             {
                 if (symbol is IMethodSymbol method
                     && method.Parameters.Length > 0
-                    && expressionType.Equals(method.Parameters[0].Type?.OriginalDefinition))
+                    && SymbolEqualityComparer.Default.Equals(expressionType, method.Parameters[0].Type?.OriginalDefinition))
                 {
                     return true;
                 }

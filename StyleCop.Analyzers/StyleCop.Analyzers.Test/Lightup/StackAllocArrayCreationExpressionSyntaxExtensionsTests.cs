@@ -5,7 +5,6 @@
 
 namespace StyleCop.Analyzers.Test.Lightup
 {
-    using System;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Lightup;
     using Xunit;
@@ -27,10 +26,6 @@ namespace StyleCop.Analyzers.Test.Lightup
             // With default value is allowed
             var stackAllocWithDefaultInitializer = StackAllocArrayCreationExpressionSyntaxExtensions.WithInitializer(stackAllocSyntax, null);
             Assert.Null(StackAllocArrayCreationExpressionSyntaxExtensions.Initializer(stackAllocWithDefaultInitializer));
-
-            // Non-default throws an exception
-            var initializer = SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression);
-            Assert.Throws<NotSupportedException>(() => StackAllocArrayCreationExpressionSyntaxExtensions.WithInitializer(stackAllocSyntax, initializer));
         }
     }
 }

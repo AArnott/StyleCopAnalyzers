@@ -5,19 +5,14 @@ namespace StyleCop.Analyzers.Test.Verifiers
 {
     using System;
     using System.Collections.Immutable;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Host.Mef;
     using Microsoft.CodeAnalysis.Testing;
-    using Microsoft.VisualStudio.Composition;
     using StyleCop.Analyzers.Lightup;
 
     internal static class GenericAnalyzerTest
     {
         internal static readonly ReferenceAssemblies ReferenceAssemblies;
-
-        private static readonly Lazy<IExportProviderFactory> ExportProviderFactory;
 
         static GenericAnalyzerTest()
         {
@@ -62,26 +57,8 @@ namespace StyleCop.Analyzers.Test.Verifiers
             ReferenceAssemblies = defaultReferenceAssemblies.AddPackages(ImmutableArray.Create(
                 new PackageIdentity("Microsoft.CodeAnalysis.CSharp", codeAnalysisTestVersion),
                 new PackageIdentity("System.ValueTuple", "4.5.0")));
-
-            ExportProviderFactory = new Lazy<IExportProviderFactory>(
-                () =>
-                {
-                    var discovery = new AttributedPartDiscovery(Resolver.DefaultInstance, isNonPublicSupported: true);
-                    var parts = Task.Run(() => discovery.CreatePartsAsync(MefHostServices.DefaultAssemblies)).GetAwaiter().GetResult();
-                    var catalog = ComposableCatalog.Create(Resolver.DefaultInstance).AddParts(parts);
-
-                    var configuration = CompositionConfiguration.Create(catalog);
-                    var runtimeComposition = RuntimeComposition.CreateRuntimeComposition(configuration);
-                    return runtimeComposition.CreateExportProviderFactory();
-                },
-                LazyThreadSafetyMode.ExecutionAndPublication);
         }
 
-        internal static AdhocWorkspace CreateWorkspace()
-        {
-            var exportProvider = ExportProviderFactory.Value.CreateExportProvider();
-            var host = MefV1HostServices.Create(exportProvider.AsExportProvider());
-            return new AdhocWorkspace(host);
-        }
+        internal static AdhocWorkspace CreateWorkspace() => new AdhocWorkspace(MefHostServices.DefaultHost);
     }
 }

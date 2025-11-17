@@ -181,10 +181,8 @@ namespace StyleCop.Analyzers.Helpers
 
         private static bool AppendTupleType(StringBuilder builder, INamedTypeSymbol namedTypeSymbol, TypeSyntax type)
         {
-            if (TupleTypeSyntaxWrapper.IsInstance(type))
+            if (type is TupleTypeSyntax tupleType)
             {
-                var tupleType = (TupleTypeSyntaxWrapper)type;
-
                 builder.Append(TupleTypeOpen);
                 var elements = namedTypeSymbol.TupleElements();
                 for (int i = 0; i < elements.Length; i++)
@@ -198,7 +196,7 @@ namespace StyleCop.Analyzers.Helpers
                     }
 
                     AppendQualifiedSymbolName(builder, field.Type, fieldType.Type);
-                    if (!Equals(field, field.CorrespondingTupleField()))
+                    if (!SymbolEqualityComparer.Default.Equals(field, field.CorrespondingTupleField()))
                     {
                         builder.Append(" ").Append(field.Name);
                     }

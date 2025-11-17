@@ -15,9 +15,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
     internal class SA1107FixAllProvider : DocumentBasedFixAllProvider
     {
-        protected override string CodeActionTitle => ReadabilityResources.SA1107CodeFix;
+        protected override string GetFixAllTitle(FixAllContext fixAllContext) => ReadabilityResources.SA1107CodeFix;
 
-        protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+        protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
         {
             if (diagnostics.IsEmpty)
             {
@@ -47,7 +47,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 editor.ReplaceNode(node, node.WithLeadingTrivia(SyntaxFactory.ElasticCarriageReturnLineFeed));
             }
 
-            return editor.GetChangedRoot();
+            return document.WithSyntaxRoot(editor.GetChangedRoot());
         }
     }
 }

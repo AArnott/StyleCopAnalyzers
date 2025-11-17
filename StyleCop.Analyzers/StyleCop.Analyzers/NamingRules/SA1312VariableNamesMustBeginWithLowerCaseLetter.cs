@@ -138,7 +138,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleSingleVariableDesignation(SyntaxNodeAnalysisContext context)
         {
-            CheckIdentifier(context, ((SingleVariableDesignationSyntaxWrapper)context.Node).Identifier);
+            CheckIdentifier(context, ((SingleVariableDesignationSyntax)context.Node).Identifier);
         }
 
         private static void CheckIdentifier(SyntaxNodeAnalysisContext context, SyntaxToken identifier)

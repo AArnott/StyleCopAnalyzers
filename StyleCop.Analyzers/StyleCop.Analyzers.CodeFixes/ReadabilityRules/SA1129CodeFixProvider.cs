@@ -65,7 +65,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static SyntaxNode GetReplacementNode(Project project, SyntaxNode node, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            var newExpression = (BaseObjectCreationExpressionSyntaxWrapper)node;
+            var newExpression = (BaseObjectCreationExpressionSyntax)node;
 
             var symbolInfo = semanticModel.GetSymbolInfo(newExpression, cancellationToken);
             var namedTypeSymbol = (symbolInfo.Symbol as IMethodSymbol)?.ContainingType;
@@ -117,13 +117,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             return replacement
-                .WithLeadingTrivia(newExpression.SyntaxNode.GetLeadingTrivia())
-                .WithTrailingTrivia(newExpression.SyntaxNode.GetTrailingTrivia());
+                .WithLeadingTrivia(newExpression.GetLeadingTrivia())
+                .WithTrailingTrivia(newExpression.GetTrailingTrivia());
         }
 
-        private static TypeSyntax GetOrCreateTypeSyntax(Project project, BaseObjectCreationExpressionSyntaxWrapper baseObjectCreationExpression, INamedTypeSymbol constructedType)
+        private static TypeSyntax GetOrCreateTypeSyntax(Project project, BaseObjectCreationExpressionSyntax baseObjectCreationExpression, INamedTypeSymbol constructedType)
         {
-            if (baseObjectCreationExpression.SyntaxNode is ObjectCreationExpressionSyntax objectCreationExpressionSyntax)
+            if (baseObjectCreationExpression is ObjectCreationExpressionSyntax objectCreationExpressionSyntax)
             {
                 return objectCreationExpressionSyntax.Type;
             }
@@ -165,9 +165,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return true;
         }
 
-        private static bool IsDefaultParameterValue(BaseObjectCreationExpressionSyntaxWrapper expression)
+        private static bool IsDefaultParameterValue(BaseObjectCreationExpressionSyntax expression)
         {
-            if (expression.SyntaxNode.Parent.Parent is ParameterSyntax parameterSyntax)
+            if (expression.Parent.Parent is ParameterSyntax parameterSyntax)
             {
                 return parameterSyntax.Parent.Parent is BaseMethodDeclarationSyntax;
             }
@@ -230,10 +230,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.SA1129CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -245,7 +245,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 var nodes = diagnostics.Select(diagnostic => syntaxRoot.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true));
 
-                return syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => GetReplacementNode(document.Project, rewrittenNode, semanticModel, fixAllContext.CancellationToken));
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => GetReplacementNode(document.Project, rewrittenNode, semanticModel, fixAllContext.CancellationToken)));
             }
         }
     }

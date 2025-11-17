@@ -198,11 +198,11 @@ namespace StyleCop.Analyzers.Helpers
                 switch (node.Kind())
                 {
                 case SyntaxKindEx.LocalFunctionStatement:
-                    this.Found |= ((LocalFunctionStatementSyntaxWrapper)node).Identifier.ValueText == this.name;
+                    this.Found |= ((LocalFunctionStatementSyntax)node).Identifier.ValueText == this.name;
                     break;
 
                 case SyntaxKindEx.SingleVariableDesignation:
-                    this.Found |= ((SingleVariableDesignationSyntaxWrapper)node).Identifier.ValueText == this.name;
+                    this.Found |= ((SingleVariableDesignationSyntax)node).Identifier.ValueText == this.name;
                     break;
 
                 default:

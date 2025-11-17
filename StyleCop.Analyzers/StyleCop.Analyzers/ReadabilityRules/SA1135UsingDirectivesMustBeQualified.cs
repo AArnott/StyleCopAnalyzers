@@ -187,10 +187,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return false;
 
             default:
-                if (TupleTypeSyntaxWrapper.IsInstance(type))
+                if (type is TupleTypeSyntax tupleType)
                 {
-                    var tupleType = (TupleTypeSyntaxWrapper)type;
-
                     builder.Append("(");
 
                     var elements = tupleType.Elements;

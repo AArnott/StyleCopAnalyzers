@@ -52,7 +52,7 @@ namespace StyleCop.Analyzers.Helpers
                 return ((VariableDeclarationSyntax)syntax.Parent).Type == syntax;
 
             case SyntaxKindEx.LocalFunctionStatement:
-                return ((LocalFunctionStatementSyntaxWrapper)syntax.Parent).ReturnType == syntax;
+                return ((LocalFunctionStatementSyntax)syntax.Parent).ReturnType == syntax;
 
             default:
                 return false;
@@ -63,7 +63,7 @@ namespace StyleCop.Analyzers.Helpers
         {
             if (syntax.IsKind(SyntaxKindEx.RefType))
             {
-                syntax = ((RefTypeSyntaxWrapper)syntax).Type;
+                syntax = ((RefTypeSyntax)syntax).Type;
             }
 
             return syntax;

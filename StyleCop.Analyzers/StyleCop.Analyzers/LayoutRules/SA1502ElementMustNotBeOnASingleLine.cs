@@ -111,7 +111,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = (LocalFunctionStatementSyntax)context.Node;
 
             // Expression-bodied local functions do not have a body
             if (localFunctionStatement.Body != null)

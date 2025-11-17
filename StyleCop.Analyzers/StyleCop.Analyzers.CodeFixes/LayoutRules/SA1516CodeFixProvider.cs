@@ -168,10 +168,9 @@ namespace StyleCop.Analyzers.LayoutRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
-                LayoutResources.SA1516CodeFixAll;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => LayoutResources.SA1516CodeFixAll;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -202,7 +201,7 @@ namespace StyleCop.Analyzers.LayoutRules
                     }
                 }
 
-                return syntaxRoot.ReplaceTokens(replaceMap.Keys, (original, rewritten) => replaceMap[original]);
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceTokens(replaceMap.Keys, (original, rewritten) => replaceMap[original]));
             }
         }
     }

@@ -273,9 +273,9 @@ namespace StyleCop.Analyzers.SpacingRules
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 
-            protected override string CodeActionTitle => SpacingResources.TokenSpacingCodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => SpacingResources.TokenSpacingCodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -292,7 +292,7 @@ namespace StyleCop.Analyzers.SpacingRules
                     UpdateReplaceMap(replaceMap, token, diagnostic);
                 }
 
-                return syntaxRoot.ReplaceTokens(replaceMap.Keys, (t1, t2) => replaceMap[t1]);
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceTokens(replaceMap.Keys, (t1, t2) => replaceMap[t1]));
             }
         }
     }

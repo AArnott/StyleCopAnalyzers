@@ -52,23 +52,22 @@ namespace StyleCop.Analyzers.LayoutRules
             return SpecializedTasks.CompletedTask;
         }
 
-        private static async Task<Document> GetTransformedDocumentAsync(Document document, Diagnostic diagnostic, CancellationToken cancellationToken)
+        private static Task<Document> GetTransformedDocumentAsync(Document document, Diagnostic diagnostic, CancellationToken cancellationToken)
         {
-            var newRoot = await GetTransformedDocumentAsync(document, ImmutableArray.Create(diagnostic), cancellationToken).ConfigureAwait(false);
-            return document.WithSyntaxRoot(newRoot);
+            return GetTransformedDocumentAsync(document, ImmutableArray.Create(diagnostic), cancellationToken);
         }
 
-        private static async Task<SyntaxNode> GetTransformedDocumentAsync(Document document, ImmutableArray<Diagnostic> diagnostics, CancellationToken cancellationToken)
+        private static async Task<Document> GetTransformedDocumentAsync(Document document, ImmutableArray<Diagnostic> diagnostics, CancellationToken cancellationToken)
         {
             var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-            return root.ReplaceTokens(
+            return document.WithSyntaxRoot(root.ReplaceTokens(
                 diagnostics.Select(diagnostic => root.FindToken(diagnostic.Location.SourceSpan.End)),
                 (originalToken, rewrittenToken) =>
                 {
                     var endOfLineTrivia = rewrittenToken.GetPrecedingEndOfLineTrivia();
                     var newTrivia = rewrittenToken.LeadingTrivia.Insert(0, endOfLineTrivia);
                     return rewrittenToken.WithLeadingTrivia(newTrivia);
-                });
+                }));
         }
 
         private class FixAll : DocumentBasedFixAllProvider
@@ -76,10 +75,10 @@ namespace StyleCop.Analyzers.LayoutRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle => LayoutResources.SA1513CodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => LayoutResources.SA1513CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
-                => await GetTransformedDocumentAsync(document, diagnostics, fixAllContext.CancellationToken).ConfigureAwait(false);
+            protected override Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+                => GetTransformedDocumentAsync(document, diagnostics, fixAllContext.CancellationToken);
         }
     }
 }

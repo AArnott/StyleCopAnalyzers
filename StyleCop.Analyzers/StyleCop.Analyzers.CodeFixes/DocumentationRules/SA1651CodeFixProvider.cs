@@ -113,9 +113,9 @@ namespace StyleCop.Analyzers.DocumentationRules
         {
             public static FixAll Instance { get; } = new FixAll();
 
-            protected override string CodeActionTitle { get; } = DocumentationResources.SA1651CodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => DocumentationResources.SA1651CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 var syntaxRoot = await document.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
                 var elements = new List<XmlElementSyntax>();
@@ -132,7 +132,7 @@ namespace StyleCop.Analyzers.DocumentationRules
 
                 var newSyntaxRoot = syntaxRoot.ReplaceNodes(elements, (original, rewritten) => rewritten.WithAdditionalAnnotations(NodeToReplaceAnnotation));
                 newSyntaxRoot = new FixAllVisitor().Visit(newSyntaxRoot);
-                return newSyntaxRoot;
+                return document.WithSyntaxRoot(newSyntaxRoot);
             }
         }
 

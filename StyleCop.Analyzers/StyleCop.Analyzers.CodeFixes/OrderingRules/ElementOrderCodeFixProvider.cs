@@ -257,9 +257,9 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 
-            protected override string CodeActionTitle => OrderingResources.ElementOrderCodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => OrderingResources.ElementOrderCodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -290,7 +290,7 @@ namespace StyleCop.Analyzers.OrderingRules
                     syntaxRoot = UpdateSyntaxRoot(memberDeclaration, elementOrder, syntaxRoot, settings.Indentation);
                 }
 
-                return syntaxRoot;
+                return document.WithSyntaxRoot(syntaxRoot);
             }
         }
     }

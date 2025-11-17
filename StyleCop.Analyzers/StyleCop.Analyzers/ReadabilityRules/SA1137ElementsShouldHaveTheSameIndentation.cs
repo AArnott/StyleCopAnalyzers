@@ -272,14 +272,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleTupleType(SyntaxNodeAnalysisContext context)
         {
-            var tupleType = (TupleTypeSyntaxWrapper)context.Node;
+            var tupleType = (TupleTypeSyntax)context.Node;
 
             CheckElements(context, tupleType.Elements);
         }
 
         private static void HandleTupleExpression(SyntaxNodeAnalysisContext context)
         {
-            var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
+            var tupleExpression = (TupleExpressionSyntax)context.Node;
 
             CheckElements(context, tupleExpression.Arguments);
         }

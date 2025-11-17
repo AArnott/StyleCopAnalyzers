@@ -189,7 +189,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             }
 
             INamedTypeSymbol expectedSymbol = semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken) as INamedTypeSymbol;
-            return Equals(actualSymbol.OriginalDefinition, expectedSymbol);
+            return SymbolEqualityComparer.Default.Equals(actualSymbol.OriginalDefinition, expectedSymbol);
         }
 
         private static bool SeeTagIsCorrect(SyntaxNodeAnalysisContext context, XElement classReferencePart, BaseMethodDeclarationSyntax constructorDeclarationSyntax)
@@ -215,7 +215,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             }
 
             INamedTypeSymbol expectedSymbol = semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken) as INamedTypeSymbol;
-            return Equals(actualSymbol.OriginalDefinition, expectedSymbol);
+            return SymbolEqualityComparer.Default.Equals(actualSymbol.OriginalDefinition, expectedSymbol);
         }
 
         private static bool TextPartsMatch(string firstText, string secondText, XmlTextSyntax firstTextPart, XmlTextSyntax secondTextPart)

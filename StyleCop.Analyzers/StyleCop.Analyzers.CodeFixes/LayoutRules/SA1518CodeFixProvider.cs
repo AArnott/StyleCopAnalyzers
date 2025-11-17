@@ -69,10 +69,10 @@ namespace StyleCop.Analyzers.LayoutRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 LayoutResources.SA1518CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -82,7 +82,7 @@ namespace StyleCop.Analyzers.LayoutRules
                 var syntaxTree = await document.GetSyntaxTreeAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
                 var settings = SettingsHelper.GetStyleCopSettingsInCodeFix(document.Project.AnalyzerOptions, syntaxTree, fixAllContext.CancellationToken);
                 Document updatedDocument = await FixEndOfFileAsync(document, diagnostics[0], settings.LayoutRules.NewlineAtEndOfFile, fixAllContext.CancellationToken).ConfigureAwait(false);
-                return await updatedDocument.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
+                return updatedDocument;
             }
         }
     }

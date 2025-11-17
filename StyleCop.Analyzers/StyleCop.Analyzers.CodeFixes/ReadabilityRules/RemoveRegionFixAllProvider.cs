@@ -15,9 +15,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
     internal sealed class RemoveRegionFixAllProvider : DocumentBasedFixAllProvider
     {
-        protected override string CodeActionTitle => "Remove region";
+        protected override string GetFixAllTitle(FixAllContext fixAllContext) => "Remove region";
 
-        protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+        protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
         {
             if (diagnostics.IsEmpty)
             {
@@ -32,7 +32,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 .SelectMany(node => node.GetRelatedDirectives())
                 .Where(node => !node.IsMissing);
 
-            return root.RemoveNodes(nodesToRemove, SyntaxRemoveOptions.AddElasticMarker);
+            return document.WithSyntaxRoot(root.RemoveNodes(nodesToRemove, SyntaxRemoveOptions.AddElasticMarker));
         }
     }
 }

@@ -116,10 +116,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.SA1131CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -130,7 +130,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 var nodes = diagnostics.Select(diagnostic => (BinaryExpressionSyntax)syntaxRoot.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true));
 
-                return syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => TransformExpression(rewrittenNode));
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) => TransformExpression(rewrittenNode)));
             }
         }
     }

@@ -146,11 +146,11 @@ namespace StyleCop.Analyzers.DocumentationRules
 
             Location location;
 
-            ISymbol declaredSymbol = context.SemanticModel.GetDeclaredSymbol(memberSyntax, context.CancellationToken);
+            ISymbol? declaredSymbol = context.SemanticModel.GetDeclaredSymbol(memberSyntax, context.CancellationToken);
 
             if (memberSyntax is ConstructorDeclarationSyntax constructorDeclarationSyntax && declaredSymbol is IMethodSymbol constructorMethodSymbol)
             {
-                if (constructorMethodSymbol.ContainingType != null)
+                if (constructorMethodSymbol.ContainingType.BaseType != null)
                 {
                     INamedTypeSymbol baseType = constructorMethodSymbol.ContainingType.BaseType;
 
@@ -241,7 +241,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                     IParameterSymbol constructorParameter = constructorMethodSymbol.Parameters[i];
                     IParameterSymbol baseParameter = baseConstructorMethod.Parameters[i];
 
-                    if (!constructorParameter.Type.Equals(baseParameter.Type))
+                    if (!SymbolEqualityComparer.Default.Equals(constructorParameter.Type, baseParameter.Type))
                     {
                         success = false;
                         break;

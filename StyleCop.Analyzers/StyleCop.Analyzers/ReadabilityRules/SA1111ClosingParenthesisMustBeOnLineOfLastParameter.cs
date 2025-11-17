@@ -216,7 +216,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatementSyntax = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatementSyntax = (LocalFunctionStatementSyntax)context.Node;
             CheckParameterList(context, localFunctionStatementSyntax.ParameterList);
         }
 
@@ -228,7 +228,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntax)context.Node;
             CheckArgumentList(context, typeDeclarationSyntax.ArgumentList);
         }
 

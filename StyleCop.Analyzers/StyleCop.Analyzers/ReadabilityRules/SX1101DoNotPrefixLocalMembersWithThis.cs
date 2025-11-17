@@ -89,7 +89,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             SyntaxNode mappedNode = speculationRoot.GetAnnotatedNodes(annotation).Single();
             var newSymbolInfo = speculativeModel.GetSymbolInfo(mappedNode, context.CancellationToken);
-            if (!Equals(originalSymbolInfo.Symbol, newSymbolInfo.Symbol))
+            if (!SymbolEqualityComparer.Default.Equals(originalSymbolInfo.Symbol, newSymbolInfo.Symbol))
             {
                 return;
             }

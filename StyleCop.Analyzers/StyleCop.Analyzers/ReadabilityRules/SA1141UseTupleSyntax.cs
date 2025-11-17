@@ -231,7 +231,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             switch (typeSyntax.Kind())
             {
             case SyntaxKindEx.TupleType:
-                CheckTupleType(context, expressionType, (TupleTypeSyntaxWrapper)typeSyntax, reportLocation);
+                CheckTupleType(context, expressionType, (TupleTypeSyntax)typeSyntax, reportLocation);
                 break;
 
             case SyntaxKind.QualifiedName:
@@ -244,7 +244,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private static void CheckTupleType(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, TupleTypeSyntaxWrapper tupleTypeSyntax, Location reportLocation)
+        private static void CheckTupleType(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, TupleTypeSyntax tupleTypeSyntax, Location reportLocation)
         {
             foreach (var tupleElementSyntax in tupleTypeSyntax.Elements)
             {
