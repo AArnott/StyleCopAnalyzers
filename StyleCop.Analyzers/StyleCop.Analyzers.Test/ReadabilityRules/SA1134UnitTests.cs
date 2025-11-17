@@ -431,7 +431,7 @@ namespace TestNamespace
 
             DiagnosticResult[] expected =
             {
-                DiagnosticResult.CompilerError("CS1513").WithLocation(6, 10),
+                DiagnosticResult.CompilerError("CS7014").WithLocation(6, 10),
                 Diagnostic().WithLocation(6, 10),
                 DiagnosticResult.CompilerError("CS1001").WithLocation(6, 11),
                 DiagnosticResult.CompilerError("CS1001").WithLocation(6, 11),

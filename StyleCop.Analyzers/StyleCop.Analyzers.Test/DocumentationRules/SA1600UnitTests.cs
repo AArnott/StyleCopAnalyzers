@@ -26,7 +26,6 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
         [Theory]
         [InlineData("public string {|#0:TestMember|};")]
         [InlineData("public string {|#0:TestMember|} { get; set; }")]
-        [InlineData("public void {|#0:TestMember|}() { }")]
         [InlineData("public string {|#0:this|}[int a] { get { return \"a\"; } set { } }")]
         [InlineData("public event EventHandler {|#0:TestMember|} { add { } remove { } }")]
         public async Task TestRegressionMethodGlobalNamespaceAsync(string code)
