@@ -202,7 +202,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = (LocalFunctionStatementSyntax)context.Node;
             CheckElementNameToken(context, localFunctionStatement.Identifier);
         }
 

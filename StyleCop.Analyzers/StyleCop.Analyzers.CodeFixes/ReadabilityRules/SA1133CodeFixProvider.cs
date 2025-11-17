@@ -103,10 +103,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.SA1133CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -129,7 +129,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     newRoot = newRoot.ReplaceNode(newRoot.GetCurrentNode(attributeList), GetNewAttributeList(attributeList, indentationTrivia));
                 }
 
-                return newRoot;
+                return document.WithSyntaxRoot(newRoot);
             }
         }
     }

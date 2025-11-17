@@ -50,13 +50,6 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static async Task<Document> GetTransformedDocumentAsync(Document document, CancellationToken token)
         {
-            var newSyntaxRoot = await GetTransformedSyntaxRootAsync(document, token).ConfigureAwait(false);
-
-            return document.WithSyntaxRoot(newSyntaxRoot);
-        }
-
-        private static async Task<SyntaxNode> GetTransformedSyntaxRootAsync(Document document, CancellationToken token)
-        {
             var syntaxRoot = await document.GetSyntaxRootAsync(token).ConfigureAwait(false);
 
             var firstToken = syntaxRoot.GetFirstToken(includeZeroWidth: true);
@@ -75,7 +68,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
             var newFirstToken = firstToken.WithLeadingTrivia(newTriviaList);
             var newSyntaxRoot = syntaxRoot.ReplaceToken(firstToken, newFirstToken);
-            return newSyntaxRoot;
+            return document.WithSyntaxRoot(newSyntaxRoot);
         }
 
         private class FixAll : DocumentBasedFixAllProvider
@@ -83,17 +76,17 @@ namespace StyleCop.Analyzers.LayoutRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 LayoutResources.SA1517CodeFix;
 
-            protected override Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
                     return null;
                 }
 
-                return GetTransformedSyntaxRootAsync(document, fixAllContext.CancellationToken);
+                return GetTransformedDocumentAsync(document, fixAllContext.CancellationToken);
             }
         }
     }

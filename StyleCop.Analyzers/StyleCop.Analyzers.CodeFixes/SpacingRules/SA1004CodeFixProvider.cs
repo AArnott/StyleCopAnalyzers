@@ -79,10 +79,10 @@ namespace StyleCop.Analyzers.SpacingRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 SpacingResources.SA1004CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -101,7 +101,7 @@ namespace StyleCop.Analyzers.SpacingRules
                 changes.Sort((left, right) => left.Span.Start.CompareTo(right.Span.Start));
 
                 var tree = await document.GetSyntaxTreeAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
-                return await tree.WithChangedText(text.WithChanges(changes)).GetRootAsync().ConfigureAwait(false);
+                return document.WithSyntaxRoot(await tree.WithChangedText(text.WithChanges(changes)).GetRootAsync().ConfigureAwait(false));
             }
         }
     }

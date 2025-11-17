@@ -84,7 +84,7 @@ namespace StyleCop.Analyzers.LayoutRules
             case SyntaxKind.Block:
                 if (node.Parent.IsKind(SyntaxKindEx.LocalFunctionStatement))
                 {
-                    newSyntaxRoot = this.RegisterLocalFunctionStatementCodeFix(syntaxRoot, (LocalFunctionStatementSyntaxWrapper)node.Parent, indentationSettings);
+                    newSyntaxRoot = this.RegisterLocalFunctionStatementCodeFix(syntaxRoot, (LocalFunctionStatementSyntax)node.Parent, indentationSettings);
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace StyleCop.Analyzers.LayoutRules
             return this.ReformatElement(syntaxRoot, node, node.Body.OpenBraceToken, node.Body.CloseBraceToken, indentationSettings);
         }
 
-        private SyntaxNode RegisterLocalFunctionStatementCodeFix(SyntaxNode syntaxRoot, LocalFunctionStatementSyntaxWrapper node, IndentationSettings indentationSettings)
+        private SyntaxNode RegisterLocalFunctionStatementCodeFix(SyntaxNode syntaxRoot, LocalFunctionStatementSyntax node, IndentationSettings indentationSettings)
         {
             return this.ReformatElement(syntaxRoot, node, node.Body.OpenBraceToken, node.Body.CloseBraceToken, indentationSettings);
         }

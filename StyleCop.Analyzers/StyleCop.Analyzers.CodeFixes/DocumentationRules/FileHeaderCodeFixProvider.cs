@@ -73,11 +73,6 @@ namespace StyleCop.Analyzers.DocumentationRules
 
         private static async Task<Document> GetTransformedDocumentAsync(Document document, CancellationToken cancellationToken)
         {
-            return document.WithSyntaxRoot(await GetTransformedSyntaxRootAsync(document, cancellationToken).ConfigureAwait(false));
-        }
-
-        private static async Task<SyntaxNode> GetTransformedSyntaxRootAsync(Document document, CancellationToken cancellationToken)
-        {
             var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
             var settings = document.Project.AnalyzerOptions.GetStyleCopSettingsInCodeFix(root.SyntaxTree, cancellationToken);
 
@@ -106,7 +101,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
             }
 
-            return newSyntaxRoot;
+            return document.WithSyntaxRoot(newSyntaxRoot);
         }
 
         private static SyntaxNode ReplaceWellFormedMultiLineCommentHeader(Document document, SyntaxNode root, StyleCopSettings settings, int commentIndex, XmlFileHeader header)
@@ -475,16 +470,16 @@ namespace StyleCop.Analyzers.DocumentationRules
         {
             public static FixAllProvider Instance { get; } = new FixAll();
 
-            protected override string CodeActionTitle => DocumentationResources.SA1633CodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => DocumentationResources.SA1633CodeFix;
 
-            protected override Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
                     return null;
                 }
 
-                return GetTransformedSyntaxRootAsync(document, fixAllContext.CancellationToken);
+                return GetTransformedDocumentAsync(document, fixAllContext.CancellationToken);
             }
         }
     }

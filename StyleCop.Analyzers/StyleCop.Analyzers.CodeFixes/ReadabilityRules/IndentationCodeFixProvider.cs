@@ -89,10 +89,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle =>
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) =>
                 ReadabilityResources.IndentationCodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -115,7 +115,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 changes.Sort((left, right) => left.Span.Start.CompareTo(right.Span.Start));
 
                 var text = await document.GetTextAsync().ConfigureAwait(false);
-                return await document.WithText(text.WithChanges(changes)).GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
+                return document.WithText(text.WithChanges(changes));
             }
         }
     }

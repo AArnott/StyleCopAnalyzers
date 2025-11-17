@@ -59,7 +59,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static SyntaxNode GetReplacementNode(SemanticModel semanticModel, SyntaxNode fieldName)
         {
             var fieldSymbol = (IFieldSymbol)semanticModel.GetSymbolInfo(fieldName.Parent).Symbol;
-            var fieldNameSymbol = fieldSymbol.ContainingType.GetMembers().OfType<IFieldSymbol>().Single(fs => !Equals(fs, fieldSymbol) && Equals(fs.CorrespondingTupleField(), fieldSymbol));
+            var fieldNameSymbol = fieldSymbol.ContainingType.GetMembers().OfType<IFieldSymbol>().Single(fs => !SymbolEqualityComparer.Default.Equals(fs, fieldSymbol) && SymbolEqualityComparer.Default.Equals(fs.CorrespondingTupleField(), fieldSymbol));
 
             return SyntaxFactory.IdentifierName(fieldNameSymbol.Name).WithTriviaFrom(fieldName);
         }
@@ -69,10 +69,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } = new FixAll();
 
             /// <inheritdoc/>
-            protected override string CodeActionTitle => ReadabilityResources.SA1142CodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => ReadabilityResources.SA1142CodeFix;
 
             /// <inheritdoc/>
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 var syntaxRoot = await document.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
                 var semanticModel = await document.GetSemanticModelAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
@@ -85,7 +85,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     replaceMap[node] = GetReplacementNode(semanticModel, node);
                 }
 
-                return syntaxRoot.ReplaceNodes(replaceMap.Keys, (original, rewritten) => replaceMap[original]);
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(replaceMap.Keys, (original, rewritten) => replaceMap[original]));
             }
         }
     }

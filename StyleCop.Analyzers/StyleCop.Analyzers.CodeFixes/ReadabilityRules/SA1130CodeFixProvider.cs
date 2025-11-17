@@ -317,9 +317,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle => ReadabilityResources.SA1130CodeFix;
+            protected override string GetFixAllTitle(FixAllContext fixAllContext) => ReadabilityResources.SA1130CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 var syntaxRoot = await document.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
                 var semanticModel = await document.GetSemanticModelAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
@@ -332,7 +332,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     nodes.Add(node);
                 }
 
-                return syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) =>
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(nodes, (originalNode, rewrittenNode) =>
                 {
                     var newNode = ReplaceWithLambda(semanticModel, rewrittenNode);
 
@@ -342,7 +342,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     }
 
                     return newNode.WithoutFormatting();
-                });
+                }));
             }
         }
     }

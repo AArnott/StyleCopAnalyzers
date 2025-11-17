@@ -72,7 +72,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
         private static void HandleImplicitStackAllocArrayCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var arrayCreation = (ImplicitStackAllocArrayCreationExpressionSyntaxWrapper)context.Node;
+            var arrayCreation = (ImplicitStackAllocArrayCreationExpressionSyntax)context.Node;
             var stackAllocKeywordToken = arrayCreation.StackAllocKeyword;
 
             if (stackAllocKeywordToken.IsFollowedByWhitespace() || stackAllocKeywordToken.IsLastInLine())

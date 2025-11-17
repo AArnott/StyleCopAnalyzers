@@ -26,7 +26,7 @@ internal static class TypeDeclarationSyntaxExtensions
             {
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
-                return ((RecordDeclarationSyntaxWrapper)syntax).ParameterList;
+                return ((RecordDeclarationSyntax)syntax).ParameterList;
 
             default:
                 return null;

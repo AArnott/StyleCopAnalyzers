@@ -76,10 +76,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
             public static FixAllProvider Instance { get; } =
                 new FixAll();
 
-            protected override string CodeActionTitle
+            protected override string GetFixAllTitle(FixAllContext fixAllContext)
                 => ReadabilityResources.SA1122CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -95,9 +95,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     expressions.Add(node);
                 }
 
-                return syntaxRoot.ReplaceNodes(
+                return document.WithSyntaxRoot(syntaxRoot.ReplaceNodes(
                     expressions,
-                    (originalNode, rewrittenNode) => StringEmptyExpression.WithTriviaFrom(rewrittenNode));
+                    (originalNode, rewrittenNode) => StringEmptyExpression.WithTriviaFrom(rewrittenNode)));
             }
         }
     }

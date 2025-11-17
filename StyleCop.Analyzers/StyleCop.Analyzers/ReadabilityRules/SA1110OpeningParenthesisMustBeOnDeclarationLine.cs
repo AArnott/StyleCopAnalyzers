@@ -323,7 +323,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = (LocalFunctionStatementSyntax)context.Node;
             if (localFunctionStatement.ParameterList != null
                 && !localFunctionStatement.ParameterList.OpenParenToken.IsMissing
                 && !localFunctionStatement.Identifier.IsMissing)
@@ -349,7 +349,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntax)context.Node;
 
             var identifierName = ((BaseTypeSyntax)primaryConstructorBaseType).ChildNodes()
                 .OfType<IdentifierNameSyntax>()

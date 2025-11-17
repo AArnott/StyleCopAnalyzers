@@ -197,7 +197,7 @@ namespace StyleCop.Analyzers.NamingRules
 
             public static void HandleSingleVariableDesignation(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
             {
-                CheckIdentifier(context, ((SingleVariableDesignationSyntaxWrapper)context.Node).Identifier, settings);
+                CheckIdentifier(context, ((SingleVariableDesignationSyntax)context.Node).Identifier, settings);
             }
 
             private static void CheckIdentifier(SyntaxNodeAnalysisContext context, SyntaxToken identifier, StyleCopSettings settings, string declarationType = "variable")

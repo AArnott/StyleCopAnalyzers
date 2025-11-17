@@ -502,11 +502,11 @@ namespace StyleCop.Analyzers.OrderingRules
             public static FixAllProvider Instance { get; } = new FixAll();
 
             /// <inheritdoc/>
-            protected override string CodeActionTitle
+            protected override string GetFixAllTitle(FixAllContext fixAllContext)
                 => OrderingResources.UsingCodeFix;
 
             /// <inheritdoc/>
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<Document> FixAllAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -517,7 +517,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
                 var syntaxRoot = await document.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
                 Document newDocument = await GetTransformedDocumentAsync(document, syntaxRoot, forcePreserve, fixAllContext.CancellationToken).ConfigureAwait(false);
-                return await newDocument.GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
+                return newDocument;
             }
         }
     }

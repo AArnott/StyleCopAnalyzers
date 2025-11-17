@@ -83,7 +83,7 @@ namespace StyleCop.Analyzers.SpacingRules
                 return;
             }
 
-            switch (token.Parent.Kind())
+            switch (token.Parent?.Kind())
             {
             case SyntaxKind.TypeArgumentList:
             case SyntaxKind.TypeParameterList:
@@ -196,7 +196,7 @@ namespace StyleCop.Analyzers.SpacingRules
             out bool allowTrailingNoSpace,
             out bool allowTrailingSpace)
         {
-            switch (nextToken.Parent.Kind())
+            switch (nextToken.Parent?.Kind())
             {
             // List<int> (int x) => new List<int> { x }
             //         ^ ^

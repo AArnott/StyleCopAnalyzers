@@ -147,7 +147,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             switch (typeSyntax.Kind())
             {
             case SyntaxKindEx.TupleType:
-                CheckTupleType(context, (TupleTypeSyntaxWrapper)typeSyntax);
+                CheckTupleType(context, (TupleTypeSyntax)typeSyntax);
                 break;
 
             case SyntaxKind.QualifiedName:
@@ -160,7 +160,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             }
         }
 
-        private static void CheckTupleType(SyntaxNodeAnalysisContext context, TupleTypeSyntaxWrapper tupleTypeSyntax)
+        private static void CheckTupleType(SyntaxNodeAnalysisContext context, TupleTypeSyntax tupleTypeSyntax)
         {
             foreach (var tupleElementSyntax in tupleTypeSyntax.Elements)
             {
@@ -168,7 +168,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
                 if (tupleElementSyntax.Identifier.IsKind(SyntaxKind.None) && !NamedTypeHelpers.IsImplementingAnInterfaceMember(context.SemanticModel.GetDeclaredSymbol(context.Node)))
                 {
-                    var location = tupleElementSyntax.SyntaxNode.GetLocation();
+                    var location = tupleElementSyntax.GetLocation();
                     context.ReportDiagnostic(Diagnostic.Create(Descriptor, location));
                 }
             }

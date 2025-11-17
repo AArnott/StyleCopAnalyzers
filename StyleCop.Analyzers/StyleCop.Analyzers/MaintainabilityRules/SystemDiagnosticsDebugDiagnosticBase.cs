@@ -36,7 +36,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 {
                     var debugType = context.SemanticModel.Compilation.GetTypeByMetadataName(typeof(Debug).FullName);
 
-                    if (Equals(symbolInfo.ContainingType, debugType)
+                    if (SymbolEqualityComparer.Default.Equals(symbolInfo.ContainingType, debugType)
                         && symbolInfo.Name == methodName)
                     {
                         if ((invocationExpressionSyntax.ArgumentList?.Arguments.Count ?? 0) <= parameterIndex)

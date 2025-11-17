@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.Test.Lightup
         [Fact]
         public void TestCanWrapNullNode()
         {
-            Assert.True(LightupHelpers.CanWrapNode(null, typeof(PatternSyntaxWrapper)));
+            Assert.True(LightupHelpers.CanWrapNode(null, typeof(ExpressionColonSyntaxWrapper)));
         }
 
         [Fact]

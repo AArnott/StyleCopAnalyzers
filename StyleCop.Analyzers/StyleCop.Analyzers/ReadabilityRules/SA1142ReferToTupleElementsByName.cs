@@ -98,13 +98,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             // check if this already is a proper tuple field name
-            if (!Equals(fieldSymbol.CorrespondingTupleField(), fieldSymbol))
+            if (!SymbolEqualityComparer.Default.Equals(fieldSymbol.CorrespondingTupleField(), fieldSymbol))
             {
                 return false;
             }
 
             // check if there is a tuple field name declared.
-            return fieldSymbol.ContainingType.GetMembers().OfType<IFieldSymbol>().Count(fs => Equals(fs.CorrespondingTupleField(), fieldSymbol)) > 1;
+            return fieldSymbol.ContainingType.GetMembers().OfType<IFieldSymbol>().Count(fs => SymbolEqualityComparer.Default.Equals(fs.CorrespondingTupleField(), fieldSymbol)) > 1;
         }
     }
 }

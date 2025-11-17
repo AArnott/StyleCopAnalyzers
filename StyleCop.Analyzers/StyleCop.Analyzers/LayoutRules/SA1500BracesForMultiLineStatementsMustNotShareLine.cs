@@ -193,7 +193,7 @@ namespace StyleCop.Analyzers.LayoutRules
                         break;
 
                     case SyntaxKindEx.ImplicitStackAllocArrayCreationExpression:
-                        if (((ImplicitStackAllocArrayCreationExpressionSyntaxWrapper)context.Node.Parent).StackAllocKeyword.GetLine() == openBraceTokenLine)
+                        if (((ImplicitStackAllocArrayCreationExpressionSyntax)context.Node.Parent).StackAllocKeyword.GetLine() == openBraceTokenLine)
                         {
                             return;
                         }
