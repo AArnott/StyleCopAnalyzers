@@ -247,6 +247,8 @@ csharp_using_directive_placement = {placement}
                 this.analyzerConfigSet = analyzerConfigSet;
             }
 
+            public override AnalyzerConfigOptions GlobalOptions => new TestAnalyzerConfigOptions(this.analyzerConfigSet.GlobalConfigOptions);
+
             public override AnalyzerConfigOptions GetOptions(SyntaxTree tree)
             {
                 return new TestAnalyzerConfigOptions(this.analyzerConfigSet.GetOptionsForSourcePath(tree.FilePath));
