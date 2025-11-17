@@ -143,10 +143,10 @@ namespace StyleCop.Analyzers.Test.HelperTests
         private static async Task<Document> CreateTestDocumentAsync(string source, int indentationSize = 4, bool useTabs = false, int tabSize = 4, CancellationToken cancellationToken = default)
         {
             var workspace = GenericAnalyzerTest.CreateWorkspace();
-            workspace.Options = workspace.Options
+            Assert.True(workspace.TryApplyChanges(workspace.CurrentSolution.WithOptions(workspace.Options
                 .WithChangedOption(FormattingOptions.IndentationSize, LanguageNames.CSharp, indentationSize)
                 .WithChangedOption(FormattingOptions.UseTabs, LanguageNames.CSharp, useTabs)
-                .WithChangedOption(FormattingOptions.TabSize, LanguageNames.CSharp, tabSize);
+                .WithChangedOption(FormattingOptions.TabSize, LanguageNames.CSharp, tabSize))));
 
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
