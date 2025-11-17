@@ -1,4 +1,4 @@
-### Layout Rules (SA1500-)
+# Layout Rules (SA1500-)
 Rules which enforce code layout and line spacing.
 
 Identifier | Name | Description

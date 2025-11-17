@@ -47,3 +47,15 @@ jobs:
       with:
         name: NuGet-Packages
         path: StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release/*.nupkg
+
+  docs:
+    name: 📃 Docs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+    - name: ⚙ Install prerequisites
+      run: ./init.ps1
+    - name: 📚 Verify docfx build
+      run: dotnet docfx docfx/docfx.json --warningsAsErrors --disableGitFeatures

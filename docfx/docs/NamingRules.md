@@ -1,4 +1,4 @@
-### Naming Rules (SA1300-)
+# Naming Rules (SA1300-)
 Rules which enforce naming requirements for members, types, and variables.
 
 Identifier | Name | Description

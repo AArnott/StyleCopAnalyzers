@@ -1,4 +1,4 @@
-### Documentation Rules (SA1600-)
+# Documentation Rules (SA1600-)
 Rules which verify the content and formatting of code documentation.
 
 Identifier | Name | Description

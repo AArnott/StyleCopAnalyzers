@@ -1,4 +1,4 @@
-### Spacing Rules (SA1000-)
+# Spacing Rules (SA1000-)
 Rules which enforce spacing requirements around keywords and symbols in the code.
 
 Identifier | Name | Description
