@@ -9,7 +9,6 @@ namespace StyleCop.Analyzers.Test.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.LayoutRules;
-    using StyleCop.Analyzers.Lightup;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1500BracesForMultiLineStatementsMustNotShareLine,
@@ -491,15 +490,7 @@ class ClassName
     }
 }";
 
-            DiagnosticResult accessorError;
-            if (LightupHelpers.SupportsCSharp7)
-            {
-                accessorError = DiagnosticResult.CompilerError("CS8180").WithMessage("{ or ; or => expected");
-            }
-            else
-            {
-                accessorError = DiagnosticResult.CompilerError("CS1043").WithMessage("{ or ; expected");
-            }
+            DiagnosticResult accessorError = DiagnosticResult.CompilerError("CS8180").WithMessage("{ or ; or => expected");
 
             DiagnosticResult[] expected =
             {

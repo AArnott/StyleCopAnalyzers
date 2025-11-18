@@ -25,24 +25,6 @@ namespace StyleCop.Analyzers.Lightup
         private static readonly ConcurrentDictionary<Type, ConcurrentDictionary<OperationKind, bool>> SupportedOperationWrappers
             = new ConcurrentDictionary<Type, ConcurrentDictionary<OperationKind, bool>>();
 
-        public static bool SupportsCSharp7 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp7));
-
-        public static bool SupportsCSharp71 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp7_1));
-
-        public static bool SupportsCSharp72 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp7_2));
-
-        public static bool SupportsCSharp73 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp7_3));
-
-        public static bool SupportsCSharp8 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp8));
-
-        public static bool SupportsCSharp9 { get; }
-            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp9));
-
         public static bool SupportsCSharp10 { get; }
             = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp10));
 
@@ -55,7 +37,7 @@ namespace StyleCop.Analyzers.Lightup
         public static bool SupportsCSharp13 { get; }
             = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp13));
 
-        public static bool SupportsIOperation => SupportsCSharp73;
+        public static bool SupportsIOperation => true;
 
         internal static bool CanWrapObject(object obj, Type underlyingType)
         {

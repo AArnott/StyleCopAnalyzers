@@ -25,26 +25,14 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
         {
             get
             {
-                yield return new[] { "    public ClassName {|#0:Method|}(string foo, string bar, string @new) { return null; }" };
-                yield return new[] { "    public delegate ClassName {|#0:Method|}(string foo, string bar, string @new);" };
-                yield return new[] { "    public ClassName {|#0:this|}[string foo, string bar, string @new] { get { return null; } set { } }" };
-
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "    public record {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "    public record struct {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                    yield return new[] { "    public record class {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                }
-
-                if (LightupHelpers.SupportsCSharp12)
-                {
-                    yield return new[] { "    public struct {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                    yield return new[] { "    public class {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                }
+                yield return new object[] { "    public ClassName {|#0:Method|}(string foo, string bar, string @new) { return null; }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "    public delegate ClassName {|#0:Method|}(string foo, string bar, string @new);", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "    public ClassName {|#0:this|}[string foo, string bar, string @new] { get { return null; } set { } }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "    public record {|#0:TestType|}(string foo, string bar, string @new) {}", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "    public record struct {|#0:TestType|}(string foo, string bar, string @new) {}", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "    public record class {|#0:TestType|}(string foo, string bar, string @new) {}", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "    public struct {|#0:TestType|}(string foo, string bar, string @new) {}", LanguageVersionEx.CSharp12 };
+                yield return new object[] { "    public class {|#0:TestType|}(string foo, string bar, string @new) {}", LanguageVersionEx.CSharp12 };
             }
         }
 

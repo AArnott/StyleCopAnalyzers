@@ -13,19 +13,11 @@ namespace StyleCop.Analyzers.Test.Helpers
         {
             get
             {
-                yield return new[] { "class" };
-                yield return new[] { "struct" };
-
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "record" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "record class" };
-                    yield return new[] { "record struct" };
-                }
+                yield return new object[] { "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -33,17 +25,9 @@ namespace StyleCop.Analyzers.Test.Helpers
         {
             get
             {
-                yield return new[] { "class" };
-
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "record" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "record class" };
-                }
+                yield return new object[] { "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record class", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -51,12 +35,8 @@ namespace StyleCop.Analyzers.Test.Helpers
         {
             get
             {
-                yield return new[] { "struct" };
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "record struct" };
-                }
+                yield return new object[] { "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -64,16 +44,9 @@ namespace StyleCop.Analyzers.Test.Helpers
         {
             get
             {
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "record" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "record class" };
-                    yield return new[] { "record struct" };
-                }
+                yield return new object[] { "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -117,20 +90,9 @@ namespace StyleCop.Analyzers.Test.Helpers
         {
             get
             {
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "record" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "record class" };
-                }
-
-                if (LightupHelpers.SupportsCSharp12)
-                {
-                    yield return new[] { "class" };
-                }
+                yield return new object[] { "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "class", LanguageVersionEx.CSharp12 };
             }
         }
 

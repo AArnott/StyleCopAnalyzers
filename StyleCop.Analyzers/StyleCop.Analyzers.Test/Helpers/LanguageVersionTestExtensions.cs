@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.Test.Helpers
             case LanguageVersionEx.CSharp7_1:
             case LanguageVersionEx.CSharp7_2:
             case LanguageVersionEx.CSharp7_3:
-                return LightupHelpers.SupportsCSharp8 ? null : input;
+                return true/*LightupHelpers.SupportsCSharp8*/ ? null : input;
 
             default:
                 throw new ArgumentException($"Unexpected value {input}", nameof(input));

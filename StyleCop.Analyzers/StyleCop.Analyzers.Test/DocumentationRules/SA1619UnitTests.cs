@@ -24,23 +24,16 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
         {
             get
             {
-                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                    yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new object[] { "record class Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                    yield return new object[] { "record struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                }
+                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:Tb|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:Tb|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:Tb|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:Tb|}> { }", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record class Foo<{|#0:Ta|}, {|#1:Tb|}> { }", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "record struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }", LanguageVersionEx.CSharp10 };
             }
         }
 

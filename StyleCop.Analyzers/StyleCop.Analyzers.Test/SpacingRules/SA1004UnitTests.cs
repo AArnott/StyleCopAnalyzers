@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.SpacingRules
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.SpacingRules;
@@ -24,13 +23,10 @@ namespace StyleCop.Analyzers.Test.SpacingRules
         {
             get
             {
-                yield return new[] { "out" };
-                yield return new[] { "ref" };
+                yield return new object[] { "out", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "ref", LanguageVersionEx.CSharp7 };
 
-                if (LightupHelpers.SupportsCSharp72)
-                {
-                    yield return new[] { "in" };
-                }
+                yield return new object[] { "in", LanguageVersionEx.CSharp7_2 };
             }
         }
 
@@ -247,14 +243,7 @@ public class TypeName
     }}
 }}";
 
-            var languageVersion = (LightupHelpers.SupportsCSharp8, LightupHelpers.SupportsCSharp72) switch
-            {
-                // Make sure to use C# 7.2 if supported, unless we are going to default to something greater
-                (false, true) => LanguageVersionEx.CSharp7_2,
-                _ => (LanguageVersion?)null,
-            };
-
-            await VerifyCSharpDiagnosticAsync(languageVersion, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(languageVersion: null, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

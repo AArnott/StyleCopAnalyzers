@@ -111,7 +111,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             }
             else
             {
-                var expectedType = LightupHelpers.SupportsCSharp8 ? "string?" : "string";
+                var expectedType = true/*LightupHelpers.SupportsCSharp8*/ ? "string?" : "string";
                 expected = new[]
                 {
                     DiagnosticResult.CompilerError("CS1503").WithSpan(new FileLinePositionSpan("/0/Test0.cs", startLinePosition, endLinePosition)).WithMessage($"Argument {1 + this.InitialArguments.Count()}: cannot convert from 'int' to '{expectedType}'"),

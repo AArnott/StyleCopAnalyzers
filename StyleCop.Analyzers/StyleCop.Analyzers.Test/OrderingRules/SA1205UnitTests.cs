@@ -8,7 +8,6 @@ namespace StyleCop.Analyzers.Test.OrderingRules
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;
@@ -36,40 +35,34 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         {
             get
             {
-                yield return new object[] { "public partial class" };
-                yield return new object[] { "internal partial class" };
-                yield return new object[] { "public static partial class" };
-                yield return new object[] { "internal static partial class" };
-                yield return new object[] { "public sealed partial class" };
-                yield return new object[] { "internal sealed partial class" };
-                yield return new object[] { "public partial struct" };
-                yield return new object[] { "internal partial struct" };
-                yield return new object[] { "public partial interface" };
-                yield return new object[] { "internal partial interface" };
-                yield return new object[] { "class" };
-                yield return new object[] { "struct" };
-                yield return new object[] { "interface" };
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new object[] { "public partial record" };
-                    yield return new object[] { "internal partial record" };
-                    yield return new object[] { "public sealed partial record" };
-                    yield return new object[] { "internal sealed partial record" };
-                    yield return new object[] { "record" };
-                }
+                yield return new object[] { "public partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public static partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal static partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public sealed partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal sealed partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public partial struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal partial struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public partial interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal partial interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "interface", LanguageVersionEx.CSharp7 };
 
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new object[] { "public partial record class" };
-                    yield return new object[] { "internal partial record class" };
-                    yield return new object[] { "public sealed partial record class" };
-                    yield return new object[] { "internal sealed partial record class" };
-                    yield return new object[] { "record class" };
+                yield return new object[] { "public partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "internal partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "public sealed partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "internal sealed partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "public partial record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "internal partial record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "public sealed partial record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "internal sealed partial record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "record class", LanguageVersionEx.CSharp10 };
 
-                    yield return new object[] { "public partial record struct" };
-                    yield return new object[] { "internal partial record struct" };
-                    yield return new object[] { "record struct" };
-                }
+                yield return new object[] { "public partial record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "internal partial record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -77,24 +70,18 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         {
             get
             {
-                yield return new object[] { "partial class" };
-                yield return new object[] { "sealed partial class" };
-                yield return new object[] { "static partial class" };
-                yield return new object[] { "partial struct" };
-                yield return new object[] { "partial interface" };
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new object[] { "partial record" };
-                    yield return new object[] { "sealed partial record" };
-                }
+                yield return new object[] { "partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "sealed partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "static partial class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "partial struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "partial interface", LanguageVersionEx.CSharp7 };
 
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new object[] { "partial record class" };
-                    yield return new object[] { "sealed partial record class" };
+                yield return new object[] { "partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "sealed partial record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "partial record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "sealed partial record class", LanguageVersionEx.CSharp10 };
 
-                    yield return new object[] { "partial record struct" };
-                }
+                yield return new object[] { "partial record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -102,57 +89,48 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         {
             get
             {
-                yield return new object[] { "public", "class" };
-                yield return new object[] { "protected", "class" };
-                yield return new object[] { "internal", "class" };
-                yield return new object[] { "protected internal", "class" };
-                yield return new object[] { "private", "class" };
+                yield return new object[] { "public", "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected", "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal", "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected internal", "class", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "private", "class", LanguageVersionEx.CSharp7 };
 
-                yield return new object[] { "public", "struct" };
-                yield return new object[] { "protected", "struct" };
-                yield return new object[] { "internal", "struct" };
-                yield return new object[] { "protected internal", "struct" };
-                yield return new object[] { "private", "struct" };
+                yield return new object[] { "public", "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected", "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal", "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected internal", "struct", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "private", "struct", LanguageVersionEx.CSharp7 };
 
-                yield return new object[] { "public", "interface" };
-                yield return new object[] { "protected", "interface" };
-                yield return new object[] { "internal", "interface" };
-                yield return new object[] { "protected internal", "interface" };
-                yield return new object[] { "private", "interface" };
+                yield return new object[] { "public", "interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected", "interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "internal", "interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "protected internal", "interface", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "private", "interface", LanguageVersionEx.CSharp7 };
 
-                if (LightupHelpers.SupportsCSharp72)
-                {
-                    yield return new object[] { "private protected", "class" };
-                    yield return new object[] { "private protected", "struct" };
-                    yield return new object[] { "private protected", "interface" };
-                }
+                yield return new object[] { "private protected", "class", LanguageVersionEx.CSharp7_2 };
+                yield return new object[] { "private protected", "struct", LanguageVersionEx.CSharp7_2 };
+                yield return new object[] { "private protected", "interface", LanguageVersionEx.CSharp7_2 };
 
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new object[] { "public", "record" };
-                    yield return new object[] { "protected", "record" };
-                    yield return new object[] { "internal", "record" };
-                    yield return new object[] { "protected internal", "record" };
-                    yield return new object[] { "private", "record" };
-                    yield return new object[] { "private protected", "record" };
-                }
+                yield return new object[] { "public", "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "protected", "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "internal", "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "protected internal", "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "private", "record", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "private protected", "record", LanguageVersionEx.CSharp9 };
 
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new object[] { "public", "record class" };
-                    yield return new object[] { "protected", "record class" };
-                    yield return new object[] { "internal", "record class" };
-                    yield return new object[] { "protected internal", "record class" };
-                    yield return new object[] { "private", "record class" };
-                    yield return new object[] { "private protected", "record class" };
+                yield return new object[] { "public", "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "protected", "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "internal", "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "protected internal", "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "private", "record class", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "private protected", "record class", LanguageVersionEx.CSharp10 };
 
-                    yield return new object[] { "public", "record struct" };
-                    yield return new object[] { "protected", "record struct" };
-                    yield return new object[] { "internal", "record struct" };
-                    yield return new object[] { "protected internal", "record struct" };
-                    yield return new object[] { "private", "record struct" };
-                    yield return new object[] { "private protected", "record struct" };
-                }
+                yield return new object[] { "public", "record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "protected", "record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "internal", "record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "protected internal", "record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "private", "record struct", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "private protected", "record struct", LanguageVersionEx.CSharp10 };
             }
         }
 
@@ -274,14 +252,7 @@ internal static partial class TestPartial
 }}
 ";
 
-            var languageVersion = (LightupHelpers.SupportsCSharp8, LightupHelpers.SupportsCSharp72) switch
-            {
-                // Make sure to use C# 7.2 if supported, unless we are going to default to something greater
-                (false, true) => LanguageVersionEx.CSharp7_2,
-                _ => (LanguageVersion?)null,
-            };
-
-            await VerifyCSharpDiagnosticAsync(languageVersion, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(languageVersion: null, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -350,14 +321,7 @@ public class Foo
 }}
 ";
 
-            var languageVersion = (LightupHelpers.SupportsCSharp8, LightupHelpers.SupportsCSharp72) switch
-            {
-                // Make sure to use C# 7.2 if supported, unless we are going to default to something greater
-                (false, true) => LanguageVersionEx.CSharp7_2,
-                _ => (LanguageVersion?)null,
-            };
-
-            await VerifyCSharpFixAsync(languageVersion, testCode, Diagnostic().WithLocation(8, 14 + typeKeyword.Length), fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(languageVersion: null, testCode, Diagnostic().WithLocation(8, 14 + typeKeyword.Length), fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

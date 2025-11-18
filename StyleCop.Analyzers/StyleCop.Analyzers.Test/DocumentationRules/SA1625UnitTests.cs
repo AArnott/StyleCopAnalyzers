@@ -24,23 +24,16 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
         {
             get
             {
-                yield return new[] { "public void Test() { }" };
-                yield return new[] { "public string Test { get; set; }" };
-                yield return new[] { "public string Test;" };
-                yield return new[] { "public class Test { }" };
-                yield return new[] { "public struct Test { }" };
-                yield return new[] { "public enum Test { }" };
-                yield return new[] { "public delegate void Test();" };
-                if (LightupHelpers.SupportsCSharp9)
-                {
-                    yield return new[] { "public record Test { }" };
-                }
-
-                if (LightupHelpers.SupportsCSharp10)
-                {
-                    yield return new[] { "public record class Test { }" };
-                    yield return new[] { "public record struct Test { }" };
-                }
+                yield return new object[] { "public void Test() { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public string Test { get; set; }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public string Test;", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public class Test { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public struct Test { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public enum Test { }", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public delegate void Test();", LanguageVersionEx.CSharp7 };
+                yield return new object[] { "public record Test { }", LanguageVersionEx.CSharp9 };
+                yield return new object[] { "public record class Test { }", LanguageVersionEx.CSharp10 };
+                yield return new object[] { "public record struct Test { }", LanguageVersionEx.CSharp10 };
             }
         }
 
